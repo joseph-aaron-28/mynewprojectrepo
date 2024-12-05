@@ -3,4 +3,4 @@ services:
   web:
     image: myfirstproject
     ports:
-      - 3000:80
+      - 9000:80
