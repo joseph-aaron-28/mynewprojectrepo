@@ -2,12 +2,11 @@
 
 
 
-IMAGE_NAME="myproject" 
-IMAGE_TAG="latest"           
+IMAGE_NAME="test"           
 DOCKERFILE="dockerfile"    
 CONTEXT="."           
 
-echo "Building Docker image: $IMAGE_NAME:$IMAGE_TAG"
-docker build -t "$IMAGE_NAME:$IMAGE_TAG" -f "$DOCKERFILE" "$CONTEXT"
+echo "Building Docker image: $IMAGE_NAME:"
+docker build -t "$IMAGE_NAME" .
 
-echo "Docker image $IMAGE_NAME:$IMAGE_TAG built successfully."
+echo "Docker image $IMAGE_NAME built successfully."
