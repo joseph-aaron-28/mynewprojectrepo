@@ -1,24 +1,16 @@
 #!/bin/bash
+if [[ $GIT_BRANCH == "origin/dev" ]]; then
+    # Build your project
+    sh 'chmod +x build.sh'
+    sh './build.sh'
+    docker login -u josephaaron28 -p dckr_pat_jnscs9F-JQ9P9hJpXIjXc0geerk
+    docker tag test josephaaron28/dev
+    docker push josephaaron28/dev
 
-IMAGE_NAME="myproject" 
-IMAGE_TAG="latest"    
-DOCKER_USERNAME="josephaaron28"
-REPO="$1" 
-
-if [ "$REPO" != "dev" ] && [ "$REPO" != "prod" ]; then
-    echo "Usage: $0 {dev|prod}"
-    exit 1
+elif [[ $GIT_BRANCH == "origin/main" ]]; then
+    sh 'chmod +x build.sh'
+    sh './build.sh'
+    docker login -u josephaaron28 -p dckr_pat_jnscs9F-JQ9P9hJpXIjXc0geerk
+    docker tag test josephaaron28/prod 
+    docker push josephaaron28/prod
 fi
-
-echo "Authenticating with Docker Hub..."
-docker login
-
-FULL_IMAGE_NAME="$DOCKER_USERNAME/$REPO:$IMAGE_TAG"
-echo "Tagging image $IMAGE_NAME:$IMAGE_TAG as $FULL_IMAGE_NAME"
-docker tag "$IMAGE_NAME:$IMAGE_TAG" "$FULL_IMAGE_NAME"
-
-echo "Pushing image to Docker Hub: $FULL_IMAGE_NAME"
-docker push "$FULL_IMAGE_NAME"
-
-echo "Image successfully pushed to Docker Hub: $FULL_IMAGE_NAME"
-
